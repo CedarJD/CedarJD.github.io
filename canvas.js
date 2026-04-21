@@ -60,7 +60,7 @@ function resizeCanvas() {
             }
         }
         for (let i = ff.length-1; i >= 0; i--) {
-            if (ff[i].x >= backgroundWidth) {
+            if (ff[i].x >= backgroundWidth || ff[i].x <= 0) {
                 ff.splice(i, 1);
             }
         }
@@ -73,7 +73,7 @@ function resizeCanvas() {
             }
         }
         for (let i = ff.length-1; i >= 0; i--) {
-            if (ff[i].y >= backgroundHeight) {
+            if (ff[i].y >= backgroundHeight || ff[i].y <= 0) {
                 ff.splice(i, 1);
             }
         }
@@ -398,12 +398,27 @@ canvas.addEventListener("contextmenu", function (evt) {
         }
         if (pixelY >= canvas.height - padding) {
             canvasHeightInput.value--;
+
         }
         if (pixelX <= padding) {
             canvasWidthInput.value--
+            for (const stitch of stitches) {
+                stitch.pullX();
+            }
+            // When/if Fills become a kind of stitch, this can be moved into the stitch array
+            for (const fill of ff) {
+                fill.x--;
+            }
         }
         if (pixelY <= padding) {
             canvasHeightInput.value--
+            for (const stitch of stitches) {
+                stitch.pullY();
+            }
+            // When/if Fills become a kind of stitch, this can be moved into the stitch array
+            for (const fill of ff) {
+                fill.y--;
+            }
         }
         resizeCanvas();
         // set which grid coordinate is being clicked

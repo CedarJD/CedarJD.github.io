@@ -95,6 +95,7 @@ function clearCanvas() {
 
 // Initialize all functionality
 function initializeAllFunctionality() {
+    console.log("initializing buttons...")
     btnExport = document.getElementById("exportBtn");
     btnExport.addEventListener('click', onExportClick);
     
